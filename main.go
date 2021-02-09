@@ -1,20 +1,29 @@
 package main
 
 import (
-    "fmt"
+    "encoding/json"
     "log"
     "net/http"
+    "github.com/gorilla/mux"
 )
 
 
 func homePage(w http.ResponseWriter, r *http.Request){
-    fmt.Fprintf(w, "Hello World")
-    fmt.Println("Endpoint Hit: homePage")
+   w.Header().Set("Access-Control-Allow-Origin", "*")
+   randomString := []string{
+       "Learn React",
+       "Use Typescript with React",
+       "Have Fun!!",
+       "Use emoji's",
+       "Look at memes",
+   }
+   json.NewEncoder(w).Encode(randomString)
 }
 
 func handleRequests() {
-    http.HandleFunc("/", homePage)
-    log.Fatal(http.ListenAndServe(":5000", nil))
+    router := mux.NewRouter()
+    router.HandleFunc("/",homePage)
+    log.Fatal(http.ListenAndServe(":5000", router))
 }
 
 func main() {
