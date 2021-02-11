@@ -1,5 +1,20 @@
 version: '3'
 services:
+  mysqldb:
+    container_name: mysqldb
+    networks: 
+      - mynetwork
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment: 
+      - MYSQL_ROOT_HOST=mysqldb
+      - MYSQL_USER=urgupta
+      - MYSQL_PASSWORD=urgupta
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=urgupta
+    volumes:
+      - database_mysql:/var/lib/mysql
   frontend:
     container_name: frontend
     image: todo-app:v1
@@ -14,7 +29,11 @@ services:
     networks: 
       - mynetwork
     image: go-app:v1
+    depends_on:
+      - "mysqldb"
     ports:
       - 5000:5000
 networks: 
   mynetwork: {}
+volumes:
+  database_mysql: 
