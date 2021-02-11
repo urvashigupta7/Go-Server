@@ -1,0 +1,20 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    image: todo-app:v1
+    networks: 
+      - mynetwork
+    environment:
+      PROXY_API: http://backend:5000/
+    ports:
+      - 3000:3000
+  backend:
+    container_name: backend
+    networks: 
+      - mynetwork
+    image: go-app:v1
+    ports:
+      - 5000:5000
+networks: 
+  mynetwork: {}

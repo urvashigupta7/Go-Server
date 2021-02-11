@@ -9,7 +9,6 @@ import (
 
 
 func homePage(w http.ResponseWriter, r *http.Request){
-   w.Header().Set("Access-Control-Allow-Origin", "*")
    randomString := []string{
        "Learn React",
        "Use Typescript with React",
@@ -22,7 +21,7 @@ func homePage(w http.ResponseWriter, r *http.Request){
 
 func handleRequests() {
     router := mux.NewRouter()
-    router.HandleFunc("/",homePage)
+    router.HandleFunc("/todo",homePage)
     log.Fatal(http.ListenAndServe(":5000", router))
 }
 
