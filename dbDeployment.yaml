@@ -5,7 +5,7 @@ metadata:
   labels:
     app: db-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mysqldb
@@ -22,12 +22,34 @@ spec:
         - containerPort: 3306
         env:
         - name: MYSQL_ROOT_HOST
-          value: mysqldb
+          valueFrom: 
+            secretKeyRef: 
+              name: mysqldb-user-creds
+              key: MYSQL_ROOT_HOST
         - name: MYSQL_USER
-          value: urgupta
+          valueFrom: 
+            secretKeyRef: 
+              name: mysqldb-user-creds
+              key: MYSQL_USER
         - name: MYSQL_PASSWORD
-          value: urgupta
+          valueFrom: 
+            secretKeyRef: 
+              name: mysqldb-user-creds
+              key: MYSQL_PASSWORD
         - name: MYSQL_DATABASE
-          value: test
+          valueFrom: 
+            secretKeyRef: 
+              name: mysqldb-user-creds
+              key: MYSQL_DATABASE
         - name: MYSQL_ROOT_PASSWORD
-          value: urgupta
+          valueFrom: 
+            secretKeyRef: 
+              name: mysqldb-user-creds
+              key: MYSQL_ROOT_PASSWORD
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: mysqlpvc
+      volumes:
+      - name: mysqlpvc
+        persistentVolumeClaim:
+          claimName: mysqlpvc

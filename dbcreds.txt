@@ -1,0 +1,6 @@
+kubectl create secret generic mysqldb-user-creds \
+      --from-literal=MYSQL_ROOT_HOST=mysqldb\
+      --from-literal=MYSQL_USER=urgupta\
+      --from-literal=MYSQL_PASSWORD=urgupta\
+      --from-literal=MYSQL_DATABASE=test\
+      --from-literal=MYSQL_ROOT_PASSWORD=urgupta

@@ -29,7 +29,7 @@ case "GET":
     if err != nil {
         panic(err.Error())
     }
-    randomString := make([]string, nos+1)
+    randomString := make([]string, nos)
     todos, err := db.Query("SELECT * FROM test")
      if err != nil {
          panic(err.Error())
@@ -41,7 +41,7 @@ case "GET":
          if err != nil {
              panic(err.Error())
          }
-         randomString[id]=todo
+         randomString[id-1]=todo
      }
     json.NewEncoder(w).Encode(randomString)
 case "POST":
