@@ -6,12 +6,7 @@ spec:
   workspaces:
     - name: source
   steps:
-    - name: initialize-db
-      image: lachlanevenson/k8s-kubectl
-      workingdir: $(workspaces.source.path)
-      command: ["/bin/sh"]
-      args: ["-c","ls ci/; kubectl create secret generic mysqldb-user-creds --from-file ./config.txt"]
-    - name: check
+    - name: deploy
       image:  lachlanevenson/k8s-kubectl
       workingdir: $(workspaces.source.path)
       command: ["/bin/sh"]
