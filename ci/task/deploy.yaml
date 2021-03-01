@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: check
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: check
+      image:  lachlanevenson/k8s-kubectl
+      workingdir: $(workspaces.source.path)
+      command: ["/bin/sh"]
+      args: ["-c","echo hello; kubectl apply -f ./dbDeployment.yaml"]
+      

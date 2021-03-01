@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: mypipeline
+spec:
+  params: 
+    - name: repository
+      type: string
+  workspaces:
+  - name: workspace
+  tasks:
+  - name: clone-git-repo
+    workspaces:
+    - name: output
+      workspace: workspace
+    taskRef:
+      name: git-clone
+    params:
+      - name: url
+        value: $(params.repository)
+      - name: deleteExisting
+        value: "true"
+  - name: build
+    runAfter:
+    - clone-git-repo
+    taskRef: 
+      name: build
+    workspaces:
+      - name: source
+        workspace: workspace
+    params:
+      - name: path-to-go-dockerfile
+        value: $(params.path-to-go-dockerfile)
+  - name: check
+    runAfter:
+    - build
+    taskRef: 
+      name: check
+    workspaces:
+      - name: source
+        workspace: workspace
