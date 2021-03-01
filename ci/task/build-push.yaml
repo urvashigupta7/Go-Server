@@ -5,9 +5,6 @@ metadata:
 spec:
   workspaces:
     - name: source
-  params: 
-    - name: path-to-go-dockerfile
-      type: string
   steps:
     - name: build-go-image
       image:  quay.io/buildah/stable:v1.17.0

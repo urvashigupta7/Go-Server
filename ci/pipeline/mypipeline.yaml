@@ -28,14 +28,11 @@ spec:
     workspaces:
       - name: source
         workspace: workspace
-    params:
-      - name: path-to-go-dockerfile
-        value: $(params.path-to-go-dockerfile)
   - name: check
     runAfter:
     - build
     taskRef: 
-      name: check
+      name: deploy
     workspaces:
       - name: source
         workspace: workspace
