@@ -5,10 +5,18 @@ metadata:
 spec:
   workspaces:
     - name: source
+  params: 
+    - name: manifest-dir
+      type: string
   steps:
-    - name: deploy
+    - name: deploy-db
       image:  lachlanevenson/k8s-kubectl
       workingdir: $(workspaces.source.path)
       command: ["/bin/sh"]
-      args: ["-c"," kubectl apply -f ./k8/dbDeployment.yaml"]
+      args: ["-c"," kubectl apply -f ./$(params.manifest-dir)/dbDeployment.yaml; kubectl apply -f ./$(params.manifest-dir)/dbService.yaml"]
+    - name: deploy-server
+      image:  lachlanevenson/k8s-kubectl
+      workingdir: $(workspaces.source.path)
+      command: ["/bin/sh"]
+      args: ["-c"," kubectl apply -f ./$(params.manifest-dir)/ServerDeployment.yaml; kubectl apply -f ./$(params.manifest-dir)/serverService.yaml"]
       

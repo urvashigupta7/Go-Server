@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: go-app:v1
+        image: urvashig07/go-app:v1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000

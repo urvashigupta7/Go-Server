@@ -5,12 +5,15 @@ metadata:
 spec:
   workspaces:
     - name: source
+  params:
+    - name: image-name
+      type: string
   steps:
     - name: build-go-image
       image:  quay.io/buildah/stable:v1.17.0
       workingdir: $(workspaces.source.path)
       command: ["/bin/bash"]
-      args: ["-c","buildah bud -t go-app:v1 ./Dockerfile ;"]
+      args: ["-c","buildah bud -t $(params.image-name) ./Dockerfile ;"]
       volumeMounts:
         - name: varlibcontainers
           mountPath: /var/lib/containers
@@ -20,7 +23,7 @@ spec:
       image: quay.io/buildah/stable:v1.17.0
       workingdir: $(workspaces.source.path)
       command: ["/bin/bash"]
-      args: ["-c","buildah push --creds $USERNAME:$PASSWORD localhost/go-app:v1  docker://$USERNAME/go-app:v1 ;"]
+      args: ["-c","buildah push --creds $USERNAME:$PASSWORD localhost/$(params.image-name)  docker://$USERNAME/$(params.image-name) ;"]
       env:
       - name: USERNAME
         valueFrom:

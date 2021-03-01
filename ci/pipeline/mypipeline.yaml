@@ -6,6 +6,10 @@ spec:
   params: 
     - name: repository
       type: string
+    - name: image-name
+      type: string
+    - name: manifest-dir
+      type: string
   workspaces:
   - name: workspace
   tasks:
@@ -28,6 +32,9 @@ spec:
     workspaces:
       - name: source
         workspace: workspace
+    params:
+      - name : image-name
+        value: $(params.image-name)
   - name: check
     runAfter:
     - build
@@ -36,3 +43,6 @@ spec:
     workspaces:
       - name: source
         workspace: workspace
+    params:
+      - name: manifest-dir
+        value: $(params.manifest-dir)
