@@ -40,3 +40,11 @@ require (
 	knative.dev/pkg v0.0.0-20210331065221-952fdd90dbb0
 	sigs.k8s.io/yaml v1.2.0
 )
+
+replace (
+	// Needed until kustomize is updated in the k8s repos:
+	// https://github.com/kubernetes-sigs/kustomize/issues/1500
+	github.com/go-openapi/spec => github.com/go-openapi/spec v0.19.3
+	github.com/kr/pty => github.com/creack/pty v1.1.10
+	maze.io/x/duration => git.maze.io/go/duration v0.0.0-20160924141736-faac084b6075
+)
