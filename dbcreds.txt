@@ -4,3 +4,8 @@ kubectl create secret generic mysqldb-user-creds \
       --from-literal=MYSQL_PASSWORD=urgupta\
       --from-literal=MYSQL_DATABASE=test\
       --from-literal=MYSQL_ROOT_PASSWORD=urgupta
+
+
+      kubectl create secret generic docker-creds \
+      --from-literal=USERNAME=urvashig07\
+      --from-literal=PASSWORD=Delhi@2018
