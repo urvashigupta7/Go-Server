@@ -1,4 +1,4 @@
-module Go-Server
+module github.com/Go-Server
 
 go 1.15
 
